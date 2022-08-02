@@ -11,11 +11,14 @@
   "author": "Samuel Coelho",
   "license": "ISC",
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.2",
     "parcel": "^2.6.2",
     "process": "^0.11.10"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.2"
   }
 }
