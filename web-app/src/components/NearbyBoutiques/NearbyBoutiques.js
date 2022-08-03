@@ -38,7 +38,7 @@ function NearbyBoutiques({
             Latitude: {latitude} Longitude: {longitude}{" "}
           </span>
           <div className={`${block}__radius-container`}>
-            <label for="radius">Distance: </label>
+            <label htmlFor="radius">Distance: </label>
             <select
               name="radius"
               id="radius"
@@ -46,7 +46,9 @@ function NearbyBoutiques({
               onChange={handleRadiusChange}
             >
               {radiusOptions.map((value) => (
-                <option value={`${value}`}>{value} km</option>
+                <option key={value} value={`${value}`}>
+                  {value} km
+                </option>
               ))}
             </select>
           </div>

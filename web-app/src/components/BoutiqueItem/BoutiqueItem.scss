@@ -51,7 +51,13 @@
 
         @include media-desktop {
             text-align: left;
+            margin-bottom: 0;
         }
+    }
+
+    &__distance {
+        font-size: 1rem;
+        color: #828181;
     }
 
     &__info {

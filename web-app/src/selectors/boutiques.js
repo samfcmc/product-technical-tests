@@ -16,6 +16,10 @@ export const getNearbyBoutiques = createSelector(
   coordinates,
   (boutiques, coordinates) => (radius) =>
     boutiques
-      .filter(({ location }) => haversine(location, coordinates) <= radius)
+      .map((boutique) => ({
+        ...boutique,
+        distance: haversine(boutique.location, coordinates),
+      }))
+      .filter(({ distance }) => distance <= radius)
       .slice(0, DEFAULT_LIMIT)
 );
