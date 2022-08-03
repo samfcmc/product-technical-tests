@@ -1,0 +1,15 @@
+@import "_variables.scss";
+
+@mixin media-min-width($width) {
+    @media (min-width: $width) {
+        @content;
+    }
+}
+
+@mixin media-desktop() {
+    @include media-min-width($desktop-min-size) {
+        @content;
+    }
+
+    ;
+}

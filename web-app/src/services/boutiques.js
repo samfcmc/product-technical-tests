@@ -7,6 +7,12 @@ export const boutiquesApi = createApi({
     getNearbyBoutiques: builder.query({
       query: ({ latitude, longitude, limit }) =>
         `/boutiques?latitude=${latitude}&longitude=${longitude}&limit=${limit}`,
+      transformResponse: (response, _, params) => {
+        const { latitude, longitude, limit } = params;
+        console.log("TEST", { latitude, longitude, limit });
+
+        return [];
+      },
     }),
   }),
 });
