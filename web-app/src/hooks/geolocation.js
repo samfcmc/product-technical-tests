@@ -34,8 +34,9 @@ export function useGeolocation() {
   );
 
   const getPosition = useCallback(() => {
+    dispatch(geolocationActions.geolocationRequested());
     window.navigator.geolocation.getCurrentPosition(onSuccess, onError);
-  }, [onSuccess, onError]);
+  }, [onSuccess, onError, dispatch]);
 
   useEffect(() => {
     const watcher = window.navigator.geolocation.watchPosition(

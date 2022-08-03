@@ -8,10 +8,20 @@ import { useCallback, useMemo, useState } from "react";
 const RADIUS_OPTIONS_KM = [20, 50, 100, 150, 200];
 
 export default function NearbyBoutiquesContainer() {
-  const { hasPosition, locating, coordinates = {} } = useGeolocation();
+  const {
+    hasPosition,
+    locating,
+    coordinates = {},
+    error: positionError,
+    getPosition,
+  } = useGeolocation();
   const [radius, setRadius] = useState(RADIUS_OPTIONS_KM[0]);
 
-  const { isFetching } = useGetAllBoutiquesQuery({}, { skip: !hasPosition });
+  const {
+    isFetching,
+    refetch,
+    error: fetchingError,
+  } = useGetAllBoutiquesQuery({}, { skip: !hasPosition });
 
   const getNearbyBoutiques = useSelector(boutiqueSelectors.getNearbyBoutiques);
 
@@ -24,6 +34,14 @@ export default function NearbyBoutiquesContainer() {
     [radius, getNearbyBoutiques]
   );
 
+  const onTryLocationAgain = useCallback(() => {
+    getPosition();
+  }, [getPosition]);
+
+  const onTryFetchBoutiquesAgain = useCallback(() => {
+    refetch();
+  }, [refetch]);
+
   return (
     <NearbyBoutiques
       boutiques={boutiques}
@@ -33,6 +51,10 @@ export default function NearbyBoutiquesContainer() {
       radiusOptions={RADIUS_OPTIONS_KM}
       radius={radius}
       onRadiusChange={onRadiusChange}
+      positionError={positionError}
+      fetchingError={fetchingError}
+      onTryLocationAgain={onTryLocationAgain}
+      onTryFetchBoutiquesAgain={onTryFetchBoutiquesAgain}
     />
   );
 }
