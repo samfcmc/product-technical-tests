@@ -26,7 +26,7 @@ const geolocationSlice = createSlice({
         coordinates: {},
       };
     },
-    geolocationRequested: (state, action) => {
+    geolocationRequested: (state) => {
       return {
         ...state,
         locating: true,

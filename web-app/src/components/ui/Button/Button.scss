@@ -1,14 +1,16 @@
+@import "../../../style/variables.scss";
+
 .button {
     background: white;
-    border: 1px solid #242038;
+    border: 1px solid $primaryColor;
     padding: 0.5rem;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.25s ease-out;
-    color: #242038;
+    color: $primaryColor;
 
     &:hover {
-        background: #242038;
+        background: $primaryColor;
         color: white;
     }
 }

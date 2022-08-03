@@ -11,6 +11,9 @@ export const allBoutiques = createSelector(
   ({ data = [] }) => data
 );
 
+/**
+ * TODO: Do this distance filtering on server-side
+ */
 export const getNearbyBoutiques = createSelector(
   allBoutiques,
   coordinates,
