@@ -5,20 +5,17 @@ import { boutiquesApi } from "../services/boutiques";
 import { coordinates } from "./geolocation";
 
 const DEFAULT_LIMIT = 5;
-const DEFAULT_RADIUS = 50000;
 
 export const allBoutiques = createSelector(
   boutiquesApi.endpoints.getAllBoutiques.select({}),
   ({ data = [] }) => data
 );
 
-export const nearbyBoutiques = createSelector(
+export const getNearbyBoutiques = createSelector(
   allBoutiques,
   coordinates,
-  (boutiques, coordinates) =>
+  (boutiques, coordinates) => (radius) =>
     boutiques
-      .filter(
-        ({ location }) => haversine(location, coordinates) <= DEFAULT_RADIUS
-      )
+      .filter(({ location }) => haversine(location, coordinates) <= radius)
       .slice(0, DEFAULT_LIMIT)
 );
