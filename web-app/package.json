@@ -14,7 +14,15 @@
     "moduleNameMapper": {
       "\\.(css|less|scss)$": "<rootDir>/test/__mocks__/styleMock.js"
     },
-    "testEnvironment": "jest-environment-jsdom"
+    "testEnvironment": "jest-environment-jsdom",
+    "transform": {
+      "\\.js$": [
+        "babel-jest",
+        {
+          "configFile": "./test/babel.config.js"
+        }
+      ]
+    }
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.10",
