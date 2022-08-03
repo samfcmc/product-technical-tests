@@ -52,7 +52,7 @@ function NearbyBoutiques({
           </div>
         </header>
       )}
-      <BoutiquesList boutiques={boutiques} />
+      {!isFetching && <BoutiquesList boutiques={boutiques} />}
     </div>
   );
 }
