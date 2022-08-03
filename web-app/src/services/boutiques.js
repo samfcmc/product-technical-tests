@@ -1,20 +1,19 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import haversine from "haversine-distance";
+
+// meters
+const DEFAULT_RADIUS = 50000;
 
 export const boutiquesApi = createApi({
   reducerPath: "boutiques",
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
   endpoints: (builder) => ({
-    getNearbyBoutiques: builder.query({
-      query: ({ latitude, longitude, limit }) =>
-        `/boutiques?latitude=${latitude}&longitude=${longitude}&limit=${limit}`,
-      transformResponse: (response, _, params) => {
-        const { latitude, longitude, limit } = params;
-        console.log("TEST", { latitude, longitude, limit });
-
-        return [];
-      },
+    getAllBoutiques: builder.query({
+      query: () => `/boutiques`,
+      transformResponse: ({ boutiques = [] }) => boutiques,
     }),
   }),
 });
 
-export const { useGetNearbyBoutiquesQuery } = boutiquesApi;
+export const { useGetNearbyBoutiquesQuery, useGetAllBoutiquesQuery } =
+  boutiquesApi;

@@ -4,7 +4,7 @@ import "./BoutiqueItem.scss";
 const block = "boutique-item";
 
 export default function BoutiqueItem({ boutique }) {
-  const { name, logo, description } = boutique;
+  const { name, logo = {}, description } = boutique;
   const { url: logoUrl } = logo;
 
   const nameInitials = useMemo(

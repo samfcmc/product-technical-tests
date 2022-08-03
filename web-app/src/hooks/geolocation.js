@@ -1,26 +1,39 @@
 import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actions as geolocationActions } from "../slices/geolocation";
+import { geolocation as geolocationSelectors } from "../selectors";
 
 export function useGeolocation() {
-  const [coordinates, setCoordinates] = useState();
-  const [error, setError] = useState();
-  const [locating, setLocating] = useState(true);
+  const dispatch = useDispatch();
+  const coordinates = useSelector(geolocationSelectors.coordinates);
+  const error = useSelector(geolocationSelectors.error);
+  const locating = useSelector(geolocationSelectors.locating);
+  const hasPosition = useSelector(geolocationSelectors.hasPosition);
 
-  const hasPosition = coordinates != null;
+  useEffect(() => {
+    if (!hasPosition) {
+      dispatch(geolocationActions.geolocationRequested());
+    }
+  }, [hasPosition, dispatch]);
 
-  const onSuccess = useCallback((position) => {
-    const { coords } = position;
-    setCoordinates(coords);
-    setLocating(false);
-    setError(null);
-  }, []);
+  const onSuccess = useCallback(
+    (position) => {
+      const { coords } = position;
+      const { latitude, longitude } = coords;
+      dispatch(geolocationActions.geolocationSuccess({ latitude, longitude }));
+    },
+    [dispatch]
+  );
 
-  const onError = useCallback((error) => {
-    setError(error);
-    setLocating(false);
-  }, []);
+  const onError = useCallback(
+    (error) => {
+      const { code, message } = error;
+      dispatch(geolocationActions.geolocationFailed({ code, message }));
+    },
+    [dispatch]
+  );
 
   const getPosition = useCallback(() => {
-    setLocating(true);
     window.navigator.geolocation.getCurrentPosition(onSuccess, onError);
   }, [onSuccess, onError]);
 

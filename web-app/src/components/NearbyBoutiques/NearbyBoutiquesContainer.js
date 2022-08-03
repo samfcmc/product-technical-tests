@@ -1,25 +1,19 @@
 import NearbyBoutiques from "./NearbyBoutiques";
-import { useGetNearbyBoutiquesQuery } from "../../services/boutiques";
+import { useGetAllBoutiquesQuery } from "../../services/boutiques";
 import { useGeolocation } from "../../hooks/geolocation";
+import { boutiques as boutiqueSelectors } from "../../selectors";
+import { useSelector } from "react-redux";
 
-const BOUTIQUES_LIMIT = 5;
 export default function NearbyBoutiquesContainer() {
-  const { coordinates, hasPosition, locating } = useGeolocation();
-  const { latitude, longitude } = hasPosition ? coordinates : {};
+  const { hasPosition, locating } = useGeolocation();
 
-  const { data = {}, isFetching } = useGetNearbyBoutiquesQuery(
-    {
-      latitude,
-      longitude,
-      limit: BOUTIQUES_LIMIT,
-    },
-    { skip: !hasPosition }
-  );
-  const { boutiques = [] } = data || {};
-  const limitedBoutiques = boutiques.slice(0, 5);
+  const { isFetching } = useGetAllBoutiquesQuery({}, { skip: !hasPosition });
+
+  const boutiques = useSelector(boutiqueSelectors.nearbyBoutiques);
+
   return (
     <NearbyBoutiques
-      boutiques={limitedBoutiques}
+      boutiques={boutiques}
       isFetching={isFetching}
       isLocating={locating}
     />
