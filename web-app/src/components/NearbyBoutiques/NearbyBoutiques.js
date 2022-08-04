@@ -67,7 +67,7 @@ function NearbyBoutiques({
           </div>
         </header>
       )}
-      {!isFetching && !positionError && !fetchingError && (
+      {!isFetching && !positionError && !fetchingError && !isLocating && (
         <BoutiquesList boutiques={boutiques} />
       )}
       {positionError && (
