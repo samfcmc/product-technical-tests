@@ -3,6 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { actions as geolocationActions } from "../slices/geolocation";
 import { geolocation as geolocationSelectors } from "../selectors";
 
+/**
+ * @typedef {Object} Position
+ * @property {Number} latitude - the latitude coordinate
+ * @property {Number} longitude - the longitude coordinate
+ */
+/**
+ * @typedef {Object} GeolocationResult
+ * @property {Position} coordinates - the pair of coordinates from the current user's location
+ * @property {GeolocationPositionError} error - the error happened when trying to get geolocation data from the browser, if there is any
+ * @property {boolean} locating - flag that is true if the geolocation was requested and we are waiting for the browser to get it
+ * @property {boolean} hasPosition - flag that is true when there is already a geolocation available
+ * @property {Function} getPosition - function that can be called to force getting the geolocation. Can be useful if we want to allow the user to try again after there was an error
+ */
+/**
+ 
+ * useGeolocation: hook that returns information about
+ * the user's current geolocation
+ * @returns {GeolocationResult} - the geolocation data
+ */
 export function useGeolocation() {
   const dispatch = useDispatch();
   const coordinates = useSelector(geolocationSelectors.coordinates);
