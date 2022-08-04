@@ -56,7 +56,7 @@ If you try to serve this `dist` folder as it is, the API requests will not work,
 
 There are multiple solutions for this:
 
-- Inject the base API url using an environment variable
+- Inject the base API url using an environment variable when creating a production build
 
 - Having a server on the `web-app` folder that would handle this
 
