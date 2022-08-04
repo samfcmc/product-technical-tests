@@ -31,7 +31,7 @@ cd web-app
 Then, you need to install all the dependencies
 
 ```bash
-npm i
+npm ci
 ```
 
 Finally, you can start the web app.
@@ -40,7 +40,11 @@ Finally, you can start the web app.
 npm start
 ```
 
-### Build for production
+Open the following link on your browser
+
+http://localhost:1234
+
+### Build the frontend for production
 
 In order to have the `javascript` minified and everything ready for production, you need to run the `build` script
 
@@ -62,7 +66,9 @@ There are multiple solutions for this:
 
 ## Tests
 
-There are some simple tests setup. This is far from full coverage but everything is setup in a way that makes it easier to add more tests in the future, including the coverage report after the tests run.
+There are some simple tests setup. This is far from full coverage but everything is setup in a way that makes it easier to add more tests in the future.
+
+It also includes a coverage report after the tests run.
 
 To run the tests, you simply need to run the `test` npm script
 
@@ -70,15 +76,15 @@ To run the tests, you simply need to run the `test` npm script
 npm test
 ```
 
-The following libraries were used to be able to do tests:
+The following libraries were used:
 
 - [Jest](https://jestjs.io/): The test runner
 
 - [React testing library](https://testing-library.com/docs/react-testing-library/intro/): Allows to render components in tests
 
-- [Babel-jest](https://www.npmjs.com/package/babel-jest): Allows to compile Javascript test files using babel. This is needed to be able to handle JSX syntax, such as React components
+- [Babel-jest](https://www.npmjs.com/package/babel-jest): Allows to transpile Javascript test files using babel. This is needed to be able to handle JSX syntax, such as React components
 
-- jest-environment-jsdom: Tests run in a `node` environment. However, when doing tests on the frontend, we need the `window` and the `document` object, so the components can be rendered somewhere. This package provides an environment that have such features, so the components can be rendered and it is possible to do assertions on the result
+- jest-environment-jsdom: Tests run in a `node` environment. However, when doing tests on the frontend, we need the `window` and the `document` objects, so the components can be rendered somewhere. This package provides an environment that have such features, so the components can be rendered and it is possible to do assertions on the result
 
 - [@testing-library/js-dom](https://www.npmjs.com/package/@testing-library/jest-dom): Provides a set of custom matchers that allow to do assertions about the DOM (for instance, if an element is visible)
 
@@ -135,7 +141,7 @@ This hook returns an object with the following properties:
 
 After we have the current user's location available, it is possible to get all the nearby boutiques.
 
-Ideally, there would be an endpoint that would accept the user's coordinates (latitude and longitude) as query parameters and query the database for the boutiques that are nearby. Such endpoint was not implemented and any backend work was outside of the scope of this challenge. The solution would need to do this computation on the client. However, there was an endpoint to get all the available boutiques.
+Ideally, there would be an endpoint that would accept the user's coordinates (latitude and longitude) as query parameters and query the database for the boutiques that are nearby. Such endpoint was not implemented and any backend work was outside of the scope of this challenge. The solution was to do this computation on the client. There was an endpoint to get all the available boutiques.
 
 The implemented solution does the following steps:
 
@@ -147,12 +153,12 @@ The implemented solution does the following steps:
 
 ### Tooling
 
-- [`Parcel`](https://parceljs.org/) is used to run the frontend locally and to build it for production. This was the tool picked because it requires no configuration and all the tools are selected and installed automatically as soon as there are files that needs those tools. For instance, if we create some React components, this tool will handle the JSX syntax without any configuration. Of course, any other tool could be used, such as [webpack](https://webpack.js.org/) but it requires some setup
+- [`Parcel`](https://parceljs.org/) is used to run the frontend locally and to build it for production. This was the tool picked because it requires no configuration and all the tools are selected and installed automatically as soon as there are files that need those tools. For instance, if we create some React components, this tool will handle the JSX syntax without any configuration. Of course, any other tool could be used, such as [webpack](https://webpack.js.org/) but it requires some setup
 
-- [Sass](https://sass-lang.com/) is used to write styling rules instead of using pure CSS. Tools like sass have really good benefits, such as, mixins and variables that avoids a lot of repetion in styling rules. The main disadvantage is that it requires another tool to handle these files and turn those into CSS, because browser cannot handle sass files. However, since we ware using `Parcel`, as soon as we have our first `scss` file, it automatically downloads the `@parcel/transformer-sass` library to handle compiling sass into CSS.
+- [Sass](https://sass-lang.com/) is used to write styling rules instead of using pure CSS. Tools like sass have really good benefits, such as, mixins and variables that avoid a lot of repetion in styling rules. The main disadvantage is that it requires another tool to handle these files and turn those into CSS, because browsers cannot handle sass files. However, since we were using `Parcel`, as soon as we have our first `scss` file, it automatically downloads the `@parcel/transformer-sass` library to handle transpiling sass into CSS.
 
 ## Conclusion
 
-I enjoyed doing this challenge. Never worked with the Geolocation API before, I got the chance of learning something new.
+I enjoyed doing this challenge. Never worked with the Geolocation API before, I got the chance to learn something new.
 
 I hope you like it :)
